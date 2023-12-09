@@ -184,8 +184,9 @@ void TpmFailureMode(uint32_t        inRequestSize,    // IN: command buffer size
     UINT8* buffer = inRequest;
     INT32  size   = inRequestSize;
 
-    // If there is no command buffer, then just return TPM_RC_FAILURE
-    if(inRequestSize == 0 || inRequest == NULL)
+    // If there is no command buffer or it is too small,
+    // then just return TPM_RC_FAILURE
+    if(inRequestSize < 10 || inRequest == NULL)
         goto FailureModeReturn;
     // If the header is not correct for TPM2_GetCapability() or
     // TPM2_GetTestResult() then just return the in failure mode response;
